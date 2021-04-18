@@ -35,7 +35,6 @@ axios.interceptors.response.use(
           break;
         case 500:
           store.commonStore.setServerError(data);
-          history.push("/server-error");
           break;
         default:
           toast.error("Сервер спит! Просьба не беспокоить!");
