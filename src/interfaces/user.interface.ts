@@ -35,6 +35,5 @@ export interface User {
     gender: string;
     interests: string;
     city: string;
-    friends?: UserInfoData[];
 }
 

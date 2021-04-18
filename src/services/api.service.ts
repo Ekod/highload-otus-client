@@ -61,7 +61,8 @@ const Account = {
 const User = {
   getUsers: () => requests.get("/users"),
   makeFriends: (friend: UserInfoData) => requests.post("/make-friends", friend),
-  removeFriend: (friendId: number) => requests.del(`/remove-friend/${friendId}`)
+  removeFriend: (friendId: number) => requests.del(`/remove-friend/${friendId}`),
+  getFriends: () => requests.get("/friends"),
 };
 
 const agent = {

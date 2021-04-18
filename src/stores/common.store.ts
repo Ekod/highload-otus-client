@@ -6,6 +6,7 @@ import { store } from "./store";
 export default class CommonStore {
   error: ServerError | null = null;
   usersList: UserInfoData[] = [];
+  friendsList: UserInfoData[] = [];
   token: string | null = localStorage.getItem("jwt");
   appLoaded = false;
   isLoading = false;
@@ -51,8 +52,8 @@ export default class CommonStore {
   };
 
   get users() {
-    if (store.commonStore.usersList.length > 0) {
-      return store.commonStore.usersList.filter(
+    if (this.usersList.length > 0) {
+      return this.usersList.filter(
         (user) => user.email !== store.userStore.user?.email
       );
     } else {
@@ -78,5 +79,22 @@ export default class CommonStore {
     } catch (error) {
       throw error;
     }
+  };
+
+  getFriends = async () => {
+    try {
+      const { friends } = await agent.User.getFriends();
+      runInAction(() => {
+        this.friendsList = friends;
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+  isFriend = (id: number) => {
+    return (
+      this.friendsList &&
+      this.friendsList.find((friend) => friend.id === id) !== undefined
+    );
   };
 }

@@ -12,14 +12,14 @@ export default observer(function UserInfoItem({
   user,
   user: { firstName, lastName, city, gender, age, interests, id },
 }: Props) {
-  const { commonStore, userStore } = useStore();
+  const { commonStore } = useStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const becomeFriends = async (user: UserInfoData) => {
     setIsLoading(true);
     try {
       await commonStore.makeFirends(user);
-      await userStore.getUser();
+      await commonStore.getFriends();
     } finally {
       setIsLoading(false);
     }
@@ -29,7 +29,7 @@ export default observer(function UserInfoItem({
     setIsLoading(true);
     try {
       await commonStore.removeFriend(userId);
-      await userStore.getUser();
+      await commonStore.getFriends();
     } finally {
       setIsLoading(false);
     }
@@ -38,7 +38,7 @@ export default observer(function UserInfoItem({
   return (
     <Segment.Group>
       <Segment>
-        {userStore.isFriend(id) ? (
+        {commonStore.isFriend(id) ? (
           <Label as="a" color="green" content="Друг" ribbon />
         ) : null}
         <Item.Group>
@@ -52,7 +52,7 @@ export default observer(function UserInfoItem({
                 <div>{`Интересы: ${interests}`}</div>
               </Item.Description>
               <Item.Extra>
-                {userStore.isFriend(id) ? (
+                {commonStore.isFriend(id) ? (
                   <>
                     <Button
                       floated="right"

@@ -55,7 +55,4 @@ export class UserStore {
     }
   };
 
-  isFriend = (id: number) => {
-    return this.user?.friends?.find((friend) => friend.id === id) !== undefined;
-  };
 }

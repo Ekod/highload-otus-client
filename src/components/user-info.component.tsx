@@ -10,6 +10,7 @@ export default observer(function UserInfo() {
   const { commonStore } = useStore();
   useEffect(() => {
     commonStore.getUsersListApi();
+    commonStore.getFriends();
   }, [commonStore]);
 
   if (commonStore.isLoading) {
